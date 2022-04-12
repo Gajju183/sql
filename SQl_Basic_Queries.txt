@@ -1,0 +1,109 @@
+Customising Display
+
+	Select CompanyName, ContactName 'Contact Person' from Customers
+	Select CompanyName, ContactName as 'Contact Person' from Customers
+	Select CompanyName,'Contact Person' , ContactName from Customers
+
+Concatenation
+
+	Select CompanyName + ' -We need to Contact- ' + ContactName as 'To whom to contact' from Customers
+
+OPERATER
+
+	select productname, Unitprice, Profit = unitprice %10  from Products
+	Select * from Products Where CategoryID = 2
+	Select * from Products Where CategoryID != 2 
+	Select * from Products Where CategoryID !> 2 
+	
+Logical (AND, OR, NOT)
+
+	Select * from Products Where CategoryID !> 2 And Discontinued = 0
+	Select * from Products Where CategoryID !> 2 or Discontinued = 0
+	
+	Select * from Products Where CategoryID !> 2 or not Discontinued = 0
+	Select * from Products Where CategoryID !> 2 And not Discontinued = 0
+
+Within range
+
+	Select * from Products Where CategoryID between 1 and 10
+	Select * from Products Where CategoryID not between 1 and 5
+	Select * from Products Where CategoryID in(1,5)
+	Select * from Products Where CategoryID not in(1,5)
+
+Match Pattern (Like)
+	
+	Select * from Products Where ProductName like 'Grandma%'	-Any string 
+	Select * from Products Where ProductName like 'Cha_'		-Single Charactor
+	
+Top 
+	Select top 5 * from Products Where UnitPrice > 50
+	
+Distinct
+ 
+	Select distinct productname from Products
+
+Functions
+	
+	Select 'Name'=upper(productname) from Products
+	select customerid, DATEDIFF (yy,orderdate, GETDATE()) as 'ageing' from Orders
+	select  left(shipname, 4) from orders
+	SELECT ASCII(CustomerID)  FROM Customers where CustomerID='ANATR';
+
+Renaming Column
+	SP_RENAME 'Customers.CustomerName' , 'FullName', 'COLUMN'
+
+jOIN
+
+	SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
+	FROM Orders
+	INNER JOIN Customers ON Orders.CustomerID=Customers.CustomerID;
+
+	
+Create a table
+	create table TEST.mdb.Empre (
+	Rimid int primary key
+	Employeeid int foreign key references test.employee(employeeid) not null,
+	amount money check (amount > 0),
+	rimtype varchar(20)check (rimtype in ('Medical','Cash','local')),
+	pendinwith varchar(30) not null
+	)
+
+Deleting data from table
+
+	sp_rename [dbo.emp],[Employee]
+
+Coying all data to new table
+
+	Select * into mdb.employee1 from employee
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

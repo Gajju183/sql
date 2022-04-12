@@ -1,0 +1,246 @@
+ALTER TABLE
+
+ALTER TABLE table_name ADD column datatype;
+ALTER TABLE lets you add columns to a table in a database.
+
+AND
+
+SELECT column_name(s)
+FROM table_name
+WHERE column_1 = value_1
+AND column_2 = value_2;
+AND is an operator that combines two conditions. Both conditions must be true for the row to be included in the result set.
+
+AS
+
+SELECT column_name AS 'Alias'
+FROM table_name;
+AS is a keyword in SQL that allows you to rename a column or table using an alias.
+
+AVG
+
+SELECT AVG(column_name)
+FROM table_name;
+AVG() is an aggregate function that returns the average value for a numeric column.
+
+BETWEEN
+
+SELECT column_name(s)
+FROM table_name
+WHERE column_name BETWEEN value_1 AND value_2;
+The BETWEEN operator is used to filter the result set within a certain range. The values can be numbers, text or dates.
+
+COUNT
+
+SELECT COUNT(column_name)
+FROM table_name;
+COUNT() is a function that takes the name of a column as an argument and counts the number of rows where the column is not NULL.
+
+CREATE TABLE
+
+CREATE TABLE table_name (column_1 datatype, column_2 datatype, column_3 datatype);
+CREATE TABLE creates a new table in the database. It allows you to specify the name of the table and the name of each column in the table.
+
+DELETE
+
+DELETE FROM table_name WHERE some_column = some_value;
+DELETE statements are used to remove rows from a table.
+
+GROUP BY
+
+SELECT COUNT(*)
+FROM table_name
+GROUP BY column_name;
+GROUP BY is a clause in SQL that is only used with aggregate functions. It is used in collaboration with the SELECT statement to arrange identical data into groups.
+
+INNER JOIN
+
+SELECT table_1/2.column_name(s) FROM table_1
+JOIN table_2
+ON table_1.column_name = table_2.column_name;
+An inner join will combine rows from different tables if the join condition is true.
+
+INSERT
+
+INSERT INTO table_name (column_1, column_2, column_3) VALUES (value_1, 'value_2', value_3);
+INSERT statements are used to add a new row to a table.
+
+LIKE
+
+SELECT column_name(s)
+FROM table_name
+WHERE column_name LIKE pattern;
+LIKE is a special operator used with the WHERE clause to search for a specific pattern in a column.
+
+LIMIT
+
+SELECT column_name(s)
+FROM table_name
+LIMIT number;
+LIMIT is a clause that lets you specify the maximum number of rows the result set will have.
+
+MAX
+
+SELECT MAX(column_name)
+FROM table_name;
+MAX() is a function that takes the name of a column as an argument and returns the largest value in that column.
+
+MIN
+
+SELECT MIN(column_name)
+FROM table_name;
+MIN() is a function that takes the name of a column as an argument and returns the smallest value in that column.
+
+OR
+
+SELECT column_name
+FROM table_name
+WHERE column_name = value_1
+OR column_name = value_2;
+OR is an operator that filters the result set to only include rows where either condition is true.
+
+ORDER BY
+
+SELECT column_name
+FROM table_name
+ORDER BY column_name ASC|DESC;
+ORDER BY is a clause that indicates you want to sort the result set by a particular column either alphabetically or numerically.
+
+OUTER JOIN
+
+SELECT column_name(s) FROM table_1
+LEFT JOIN table_2
+ON table_1.column_name = table_2.column_name;
+An outer join will combine rows from different tables even if the the join condition is not met. Every row in the left table is returned in the result set, and if the join condition is not met, then NULL values are used to fill in the columns from the right table.
+
+ROUND
+
+SELECT ROUND(column_name, integer)
+FROM table_name;
+ROUND() is a function that takes a column name and an integer as an argument. It rounds the values in the column to the number of decimal places specified by the integer.
+
+SELECT
+
+SELECT column_name FROM table_name;
+SELECT statements are used to fetch data from a database. Every query will begin with SELECT.
+
+SELECT DISTINCT
+
+SELECT DISTINCT column_name FROM table_name;
+SELECT DISTINCT specifies that the statement is going to be a query that returns unique values in the specified column(s).
+
+SUM
+
+SELECT SUM(column_name)
+FROM table_name;
+SUM() is a function that takes the name of a column as an argument and returns the sum of all the values in that column.
+
+UPDATE
+
+UPDATE table_name
+SET some_column = some_value
+WHERE some_column = some_value;
+UPDATE statments allow you to edit rows in a table.
+
+WHERE
+
+SELECT column_name(s)
+FROM table_name
+WHERE column_name operator value;
+WHERE is a clause that indicates you want to filter the result set to include only rows where the following condition is true.
+
+HAVING Syntax
+SELECT column_name(s)
+FROM table_name
+WHERE condition
+GROUP BY column_name(s)
+HAVING condition
+ORDER BY column_name(s);
+
+The SQL UNION Operator
+The UNION operator is used to combine the result-set of two or more SELECT statements.
+
+Each SELECT statement within UNION must have the same number of columns
+The columns must also have similar data types
+The columns in each SELECT statement must also be in the same order
+
+UNION Syntax
+SELECT column_name(s) FROM table1
+UNION
+SELECT column_name(s) FROM table2;
+
+UNION ALL Syntax
+The UNION operator selects only distinct values by default. To allow duplicate values, use UNION ALL:
+
+SELECT column_name(s) FROM table1
+UNION ALL
+SELECT column_name(s) FROM table2;
+
+The SQL ANY and ALL Operators
+The ANY and ALL operators are used with a WHERE or HAVING clause.
+
+The ANY operator returns true if any of the subquery values meet the condition.
+
+The ALL operator returns true if all of the subquery values meet the condition.
+
+ANY Syntax
+SELECT column_name(s)
+FROM table_name
+WHERE column_name operator ANY
+(SELECT column_name FROM table_name WHERE condition);
+
+ALL Syntax
+SELECT column_name(s)
+FROM table_name
+WHERE column_name operator ALL
+(SELECT column_name FROM table_name WHERE condition);
+
+
+The SQL SELECT INTO Statement
+The SELECT INTO statement copies data from one table into a new table.
+
+SELECT INTO Syntax
+Copy all columns into a new table:
+
+SELECT *
+INTO newtable [IN externaldb]
+FROM oldtable
+WHERE condition;
+Copy only some columns into a new table:
+
+SELECT column1, column2, column3, ...
+INTO newtable [IN externaldb]
+FROM oldtable
+WHERE condition;
+The new table will be created with the column-names and types as defined in the old table. You can create new column names using the AS clause.
+
+
+CREATE INDEX Syntax
+
+Creates an index on a table. Duplicate values are allowed:
+CREATE INDEX index_name
+ON table_name (column1, column2, ...);
+CREATE UNIQUE INDEX Syntax
+
+Creates a unique index on a table. Duplicate values are not allowed:
+CREATE UNIQUE INDEX index_name
+ON table_name (column1, column2, ...);
+
+SQL Server Equivalent of Oracle SUBSTR is SUBSTRING, Query : select substring(FIRST_NAME,1,3) from employee
+
+Get position of 'o' in name 'John' from employee table
+SQL Server Equivalent of Oracle INSTR is CHARINDEX, Query: Select CHARINDEX('o',FIRST_NAME,0) from employee where first_name='John'
+
+Get FIRST_NAME from employee table after removing white spaces from right side
+select R/LTRIM(FIRST_NAME) from employee (R/L=left or right side)
+
+Lenght Len
+
+Get First_Name from employee table after replacing 'o' with '$'
+select REPLACE(FIRST_NAME,'o','$') from employee
+
+Get First_Name and Last_Name as single column from employee table separated by a '_'
+SQL Server Equivalent of MySQL concat is '+', Query : Select FIRST_NAME + '_' +LAST_NAME from EMPLOYEE
+
+select SUBSTRING (convert(varchar,Invoicedate,103),7,4) , SUBSTRING (convert(varchar,Invoicedate,100),1,3) , SUBSTRING (convert(varchar,Invoicedate,100),5,2) from Salesdetails
+

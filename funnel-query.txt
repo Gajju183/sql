@@ -1,0 +1,60 @@
+SELECT * FROM
+((SELECT 'Impressions' as `Step`, sum(`amazon.productAdsData`.`impressions`) AS `Value`
+FROM `amazon.productAdsData` 
+JOIN `amazon.attribution_windows` ON `amazon.productAdsData`.`dateTime` >= `amazon.attribution_windows`.`date_time`
+JOIN `amazon.profiles` ON CAST(`amazon.profiles`.`profileId` AS STRING) = `amazon.productAdsData`.`profile`
+JOIN `amazon.productAds` ON `amazon.productAds`.`adId` = `amazon.productAdsData`.`adId`
+JOIN `amazon.adGroups` ON `amazon.adGroups`.`adGroupId` = `amazon.productAds`.`adGroupId`
+JOIN `amazon.campaigns` ON `amazon.campaigns`.`campaignId` = `amazon.productAds`.`campaignId`
+WHERE {{dateTime}}
+[[AND {{account}}]]
+[[AND {{attribution_window}}]]
+[[AND {{productType}}]]
+[[AND {{campaignSpec}}]]
+[[AND {{partedHour}}]]
+[[AND {{campaign}}]]
+[[AND {{campaignState}}]]
+[[AND {{product}}]]
+[[AND {{targetting}}]])
+UNION ALL
+(SELECT 'Clicks' as `Step`, sum(`amazon.productAdsData`.`clicks`) AS `Value`
+FROM `amazon.productAdsData` 
+JOIN `amazon.attribution_windows` ON `amazon.productAdsData`.`dateTime` >= `amazon.attribution_windows`.`date_time`
+JOIN `amazon.profiles` ON CAST(`amazon.profiles`.`profileId` AS STRING) = `amazon.productAdsData`.`profile`
+JOIN `amazon.productAds` ON `amazon.productAds`.`adId` = `amazon.productAdsData`.`adId`
+JOIN `amazon.adGroups` ON `amazon.adGroups`.`adGroupId` = `amazon.productAds`.`adGroupId`
+JOIN `amazon.campaigns` ON `amazon.campaigns`.`campaignId` = `amazon.productAds`.`campaignId`
+WHERE {{dateTime}}
+[[AND {{account}}]]
+[[AND {{attribution_window}}]]
+[[AND {{productType}}]]
+[[AND {{campaignSpec}}]]
+[[AND {{partedHour}}]]
+[[AND {{campaign}}]]
+[[AND {{campaignState}}]]
+[[AND {{product}}]]
+[[AND {{targetting}}]])
+UNION ALL
+(SELECT 'Sales' as `Step`, sum(
+            IF(`amazon.attribution_windows`.`attribution_window` = "1 DAY", `amazon.productAdsData`.`attributedConversions1d`, 
+            IF(`amazon.attribution_windows`.`attribution_window` = "7 DAY",  `amazon.productAdsData`.`attributedConversions7d`,
+            IF(`amazon.attribution_windows`.`attribution_window` = "14 DAY",  `amazon.productAdsData`.`attributedConversions14d`,
+            IF(`amazon.attribution_windows`.`attribution_window` = "30 DAY",  `amazon.productAdsData`.`attributedConversions30d`, NULL)))) 
+        ) AS `Value`
+FROM `amazon.productAdsData` 
+JOIN `amazon.attribution_windows` ON `amazon.productAdsData`.`dateTime` >= `amazon.attribution_windows`.`date_time`
+JOIN `amazon.profiles` ON CAST(`amazon.profiles`.`profileId` AS STRING) = `amazon.productAdsData`.`profile`
+JOIN `amazon.productAds` ON `amazon.productAds`.`adId` = `amazon.productAdsData`.`adId`
+JOIN `amazon.adGroups` ON `amazon.adGroups`.`adGroupId` = `amazon.productAds`.`adGroupId`
+JOIN `amazon.campaigns` ON `amazon.campaigns`.`campaignId` = `amazon.productAds`.`campaignId`
+WHERE {{dateTime}}
+[[AND {{account}}]]
+[[AND {{attribution_window}}]]
+[[AND {{productType}}]]
+[[AND {{campaignSpec}}]]
+[[AND {{partedHour}}]]
+[[AND {{campaign}}]]
+[[AND {{campaignState}}]]
+[[AND {{product}}]]
+[[AND {{targetting}}]]))
+ORDER BY 2 DESC
