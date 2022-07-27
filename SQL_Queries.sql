@@ -8,7 +8,8 @@ Select DATE_SUB(DATE_TRUNC(CURRENT_DATE(), MONTH), INTERVAL 1 DAY)
 
 First Date of month
 ------------------------
-Select DATE_TRUNC(CURRENT_DATE(), MONTH) 
+Select DATE_TRUNC(CURRENT_DATE(), MONTH)
+MY-SQL SELECT DATE_SUB(LAST_DAY(NOW()),INTERVAL DAY(LAST_DAY(NOW()))-1 DAY) AS 'FIRST DAY OF CURRENT MONTH';
 
 Yesterday
 ----------------------
